@@ -27,17 +27,17 @@ compiler.ar.cmd=arm-none-eabi-ar
 compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 
-compiler.extra_flags=-mcpu={build.mcu} -DF_CPU={build.f_cpu} -mthumb -DSTM32GENERIC -DRAM_LENGTH={upload.maximum_data_size} -DFLASH_LENGTH={upload.maximum_size}
+compiler.extra_flags=-mcpu={build.mcu} {build.flags.fp} -DF_CPU={build.f_cpu} -mthumb -DSTM32GENERIC -DRAM_LENGTH={upload.maximum_data_size} -DFLASH_LENGTH={upload.maximum_size}
 
 compiler.S.flags={compiler.extra_flags} -c -g -x assembler-with-cpp
 
-compiler.c.flags={compiler.extra_flags} -c -g -MMD -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD
+compiler.c.flags={compiler.extra_flags} -c -g -MMD -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -MMD
 
-compiler.cpp.flags={compiler.extra_flags} -c -g -Os {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -Dprintf=iprintf -MMD
+compiler.cpp.flags={compiler.extra_flags} -c -g -Os {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions  -MMD
 
 compiler.ar.flags=rcs
 
-compiler.c.elf.flags=-mcpu={build.mcu} -mthumb -Os -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
+compiler.c.elf.flags=-mcpu={build.mcu} {build.flags.fp} -mthumb -Os -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
 
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 
@@ -49,6 +49,9 @@ compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
 
 compiler.libraries.ldflags=
+
+# Defaults config
+build.flags.fp=
 
 # this can be overriden in boards.txt
 build.extra_flags=
