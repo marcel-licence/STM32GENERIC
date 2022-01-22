@@ -380,7 +380,8 @@ BLACK_F407XX.name=BLACK F407VG/VE/ZE/ZG boards
 BLACK_F407XX.upload.maximum_size=524288
 BLACK_F407XX.upload.maximum_data_size=131072
 
-BLACK_F407XX.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+BLACK_F407XX.build.mcu=cortex-m4
+BLACK_F407XX.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 BLACK_F407XX.build.core=arduino
 BLACK_F407XX.build.board=BLACK_F407XX
 BLACK_F407XX.build.series=STM32F4
